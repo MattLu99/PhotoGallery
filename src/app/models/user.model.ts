@@ -7,5 +7,5 @@ export interface User {
 
 export interface UserDto {
   name: string;
-  description: string;
+  password: string;
 }

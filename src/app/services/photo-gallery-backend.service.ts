@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Album } from '../models/album.model';
 import { Photo } from '../models/photo.model';
-import { User } from '../models/user.model';
+import { User, UserDto } from '../models/user.model';
 
 //Local connection hardcoded into service
 const GALLERY_ENDPOINT = "https://localhost:7172/api";
@@ -26,6 +26,10 @@ export class PhotoGalleryBackendService {
 
   countUsers(): Observable<number> {
     return this.http.get<number>(`${GALLERY_ENDPOINT}/User/Count`);
+  }
+
+  loginUser(userDto: UserDto): Observable<User> {
+    return this.http.post<User>(`${GALLERY_ENDPOINT}/User/Login`, userDto, this.httpOptions);
   }
 
   /* User Endpoints End */
