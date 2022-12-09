@@ -9,6 +9,7 @@
   </div>
 
   <div *ngIf="userLoggedIn()">
+    <a mat-raised-button [routerLink]="['albums']">Albums</a>
     <a mat-raised-button [routerLink]="['profile']">Profile</a>
     <button mat-raised-button (click)="logout()">Logout</button>
   </div>

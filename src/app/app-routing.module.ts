@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AlbumsComponent } from './components/albums/albums.component';
 import { HomeComponent } from './components/home/home.component';
 import { ImageUploadComponent } from './components/image-upload/image-upload.component';
 import { LoginComponent } from './components/login/login.component';
@@ -22,6 +23,10 @@ const routes: Routes = [
   {
     path: 'profile',
     component: ProfileComponent
+  },
+  {
+    path: 'albums',
+    component: AlbumsComponent
   },
   {
     path: 'imagetest',
