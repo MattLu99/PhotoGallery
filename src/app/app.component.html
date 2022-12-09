@@ -1,8 +1,6 @@
 <mat-toolbar color="primary">
   <a class="title" href="/">{{title}}</a>
 
-  <div class="toolbar-spacer"></div>
-
   <div *ngIf="!userLoggedIn()">
     <a mat-raised-button [routerLink]="['login']">Login</a>
     <a mat-raised-button [routerLink]="['register']">Register</a>

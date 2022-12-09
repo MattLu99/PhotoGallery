@@ -1,8 +1,8 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Album } from '../models/album.model';
-import { Photo } from '../models/photo.model';
+import { Album, AlbumDto } from '../models/album.model';
+import { Photo, PhotoDto } from '../models/photo.model';
 import { User, UserDto } from '../models/user.model';
 
 //Local connection hardcoded into service
@@ -42,6 +42,10 @@ export class PhotoGalleryBackendService {
 
   getUserAlbumsInLocation(id: string, location: string): Observable<Album[]> {
     return this.http.get<Album[]>(`${GALLERY_ENDPOINT}/User/${id}/AlbumsByLocation/${location}`);
+  }
+
+  createNewAlbum(id: string, albumDto: AlbumDto): Observable<Album[]> {
+    return this.http.post<Album[]>(`${GALLERY_ENDPOINT}/User/${id}/NewAlbum`, albumDto, this.httpOptions);
   }
 
   /* User Endpoints End */

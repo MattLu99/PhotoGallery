@@ -1,5 +1,38 @@
-<div >
-    <mat-card class="example-card" *ngFor="let album of albums">
+<div>
+  <mat-card class="create-card">
+    <mat-card-title>Create a New album</mat-card-title>
+    <mat-card-subtitle>Create a new album and add it to the current location.</mat-card-subtitle>
+    <form>
+      <p>Name:</p>
+      <mat-form-field appearance="fill" class="wide">
+        <mat-label>Name</mat-label>
+        <input matInput type="text" #nName>
+      </mat-form-field>
+      <br>
+      <br>
+      <p>Description:</p>
+      <mat-form-field appearance="fill" class="wide">
+        <mat-label>Description</mat-label>
+        <input matInput type="text" #nDesc>
+      </mat-form-field>
+      <br>
+    </form>
+    <mat-card-content>
+      <button mat-raised-button color="primary"
+        (click)="createAlbum(nName.value.trim(), nDesc.value.trim())">
+        Submit
+      </button>
+    </mat-card-content>
+  </mat-card>
+</div>
+<div>
+    <button mat-raised-button color="primary"
+    (click)="reloadAlbums()">
+    Reload
+    </button>
+</div>
+<div *ngIf="albums">
+    <mat-card class="view-card" *ngFor="let album of albums">
     <mat-card-header>
         <mat-card-title>{{album.name}}</mat-card-title>
         <mat-card-subtitle>{{album.id}}</mat-card-subtitle>

@@ -4,6 +4,7 @@ export interface Album {
   userId: string;
   parentName: string;
   description: string;
+  coverImageId: string;
   createdAt: Date;
 }
 
