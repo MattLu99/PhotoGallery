@@ -32,6 +32,10 @@ export class PhotoGalleryBackendService {
     return this.http.post<User>(`${GALLERY_ENDPOINT}/User/Login`, userDto, this.httpOptions);
   }
 
+  registerUser(userDto: UserDto): Observable<User> {
+    return this.http.post<User>(`${GALLERY_ENDPOINT}/User/Register`, userDto, this.httpOptions);
+  }
+
   /* User Endpoints End */
 
   /* Album Endpoints Start */
