@@ -1,4 +1,10 @@
+<mat-toolbar color="primary">
+  <a class="title" href="/">{{ title }}</a>
 
-<div>
+  <div class="toolbar-spacer"></div>
+  <a mat-raised-button [routerLink]="['login']">Login</a>
+
+</mat-toolbar>
+<div class="container">
   <router-outlet></router-outlet>
 </div>

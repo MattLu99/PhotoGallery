@@ -1,8 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Photo } from '../../models/photo.model';
-import { PhotoDto } from '../../models/photoDto';
+import { Photo, PhotoDto } from '../../models/photo.model';
 
 @Component({
   selector: 'app-image-upload',

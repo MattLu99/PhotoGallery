@@ -8,3 +8,11 @@ export interface Photo {
   imageData: string;
   uploadedAt: Date;
 }
+
+export interface PhotoDto {
+  name: string;
+  description: string;
+  takenAtTime: Date;
+  takenAtLocation: string;
+  imageData: string;
+}
