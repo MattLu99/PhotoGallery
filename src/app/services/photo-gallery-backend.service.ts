@@ -44,8 +44,8 @@ export class PhotoGalleryBackendService {
     return this.http.get<Album[]>(`${GALLERY_ENDPOINT}/User/${id}/AlbumsByLocation/${location}`);
   }
 
-  createNewAlbum(id: string, albumDto: AlbumDto): Observable<Album[]> {
-    return this.http.post<Album[]>(`${GALLERY_ENDPOINT}/User/${id}/NewAlbum`, albumDto, this.httpOptions);
+  createNewAlbum(id: string, albumDto: AlbumDto): Observable<Album> {
+    return this.http.post<Album>(`${GALLERY_ENDPOINT}/User/${id}/NewAlbum`, albumDto, this.httpOptions);
   }
 
   /* User Endpoints End */
@@ -59,6 +59,18 @@ export class PhotoGalleryBackendService {
     return this.http.get<number>(`${GALLERY_ENDPOINT}/Album/Count`);
   }
 
+  getAlbumById(id: string): Observable<Album> {
+    return this.http.get<Album>(`${GALLERY_ENDPOINT}/Album/${id}`);
+  }
+
+  getAlbumPhotosById(id: string): Observable<Photo[]> {
+    return this.http.get<Photo[]>(`${GALLERY_ENDPOINT}/Album/${id}/Photos`);
+  }
+
+  createNewPhoto(id: string, photoDto: PhotoDto): Observable<Photo> {
+    return this.http.post<Photo>(`${GALLERY_ENDPOINT}/Album/${id}/NewPhoto`, photoDto, this.httpOptions);
+  }
+
   /* Album Endpoints End */
 
   /* Photo Endpoints Start */
@@ -68,6 +80,10 @@ export class PhotoGalleryBackendService {
 
   countPhotos(): Observable<number> {
     return this.http.get<number>(`${GALLERY_ENDPOINT}/Photo/Count`);
+  }
+
+  getPhotoById(id: string): Observable<Photo> {
+    return this.http.get<Photo>(`${GALLERY_ENDPOINT}/Photo/${id}`);
   }
 
   /* Photo Endpoints End */
