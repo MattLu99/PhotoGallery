@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { LoggedInService } from './services/logged-in.service';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,16 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'PhotoGallery';
+  title = 'Photo Gallery';
+
+  constructor(private loginService: LoggedInService) { }
+
+  userLoggedIn(): boolean {
+    return this.loginService.userLoggedIn;
+  }
+
+  logout(): void {
+    this.loginService.LogoutUser()
+  }
+
 }

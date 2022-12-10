@@ -1,0 +1,114 @@
+<div *ngIf="currentAlbum">
+    <h1>{{currentAlbum.name}}</h1>
+    <p>{{currentAlbum.description}}</p>
+</div>
+<div>
+  <mat-card class="create-card">
+    <mat-card-title>Create a New Album</mat-card-title>
+    <mat-card-subtitle>Create a new album and add it to the current location.</mat-card-subtitle>
+    <form>
+      <p>Name:</p>
+      <mat-form-field appearance="fill" class="wide">
+        <mat-label>Name</mat-label>
+        <input matInput type="text" #nName>
+      </mat-form-field>
+      <br>
+      <br>
+      <p>Description:</p>
+      <mat-form-field appearance="fill" class="wide">
+        <mat-label>Description</mat-label>
+        <input matInput type="text" #nDesc>
+      </mat-form-field>
+      <br>
+    </form>
+    <mat-card-content>
+      <button mat-raised-button color="primary"
+        (click)="createAlbum(nName.value.trim(), nDesc.value.trim())">
+        Submit
+      </button>
+    </mat-card-content>
+  </mat-card>
+</div>
+<div>
+  <mat-card class="create-card">
+    <mat-card-title>Create a New Photo</mat-card-title>
+    <mat-card-subtitle>Create a new photo and add it to the current album.</mat-card-subtitle>
+    <form>
+      <p>Name:</p>
+      <mat-form-field appearance="fill" class="wide">
+        <mat-label>Name</mat-label>
+        <input matInput type="text" #nName>
+      </mat-form-field>
+      <br>
+      <br>
+      <p>Description:</p>
+      <mat-form-field appearance="fill" class="wide">
+        <mat-label>Description</mat-label>
+        <input matInput type="text" #nDesc>
+      </mat-form-field>
+      <br>
+      <br>
+      <p>Event Date:</p>
+      <mat-form-field appearance="fill">
+        <mat-label>Choose a date</mat-label>
+        <input matInput [matDatepicker]="datepicker" #nDate>
+        <mat-hint>MM/DD/YYYY</mat-hint>
+        <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
+        <mat-datepicker #datepicker>
+          <mat-datepicker-actions>
+            <button mat-button matDatepickerCancel>Cancel</button>
+            <button mat-raised-button color="primary" matDatepickerApply>Apply</button>
+          </mat-datepicker-actions>
+        </mat-datepicker>
+      </mat-form-field>
+      <br>
+      <br>
+      <p>Taken at:</p>
+      <mat-form-field appearance="fill" class="wide">
+        <mat-label>Location</mat-label>
+        <input matInput type="text" #nLocation>
+      </mat-form-field>
+      <br>
+      <br>
+      <input type="file" (change)="onUploadChange($event)">
+      <br>
+    </form>
+    <mat-card-content>
+      <button mat-raised-button color="primary"
+        (click)="createPhoto(nName.value.trim(), nDesc.value.trim(), nDate.value.trim(), nLocation.value.trim())">
+        Submit
+      </button>
+    </mat-card-content>
+  </mat-card>
+</div>
+<div>
+  <button mat-raised-button color="primary" (click)="reload()"> Reload </button>
+</div>
+<div *ngIf="albums?.length">
+  <h2>Albums</h2>
+  <mat-card class="view-card" *ngFor="let album of albums">
+  <mat-card-header>
+    <mat-card-title>{{album.name}}</mat-card-title>
+    <mat-card-subtitle>{{album.id}}</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <p>Description: {{album.description}}</p>
+    <p>Created: {{album.createdAt}}</p>
+    <a mat-raised-button color="primary" [routerLink]="['../', album.id]" (click)="onView()"> View </a>
+  </mat-card-content>
+  </mat-card>
+</div>
+<div *ngIf="photos?.length">
+  <h2>Albums</h2>
+  <mat-card class="view-card" *ngFor="let photo of photos">
+  <mat-card-header>
+    <mat-card-title>{{photo.name}}</mat-card-title>
+    <mat-card-subtitle>{{photo.id}}</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <p>Description: {{photo.description}}</p>
+    <a mat-raised-button color="primary" [routerLink]="['../photos/', photo.id]" (click)="onView()"> View </a>
+    <img src={{photo.imageData}} alt="" id="img" height="400px">
+  </mat-card-content>
+  </mat-card>
+</div>

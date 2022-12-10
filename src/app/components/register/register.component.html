@@ -1,0 +1,27 @@
+<div class="center-content">
+  <mat-card class="register-card">
+    <mat-card-header>
+      <mat-card-title>Register</mat-card-title>
+      <mat-card-subtitle >Photo Gallery</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <form class="register-form">
+        <mat-form-field class="full-width" appearance="fill">
+          <mat-label>Username</mat-label>
+          <input type="text" matInput placeholder="Username" value="" name="username" #name>
+        </mat-form-field>
+        <mat-form-field class="full-width" appearance="fill">
+          <mat-label>Password</mat-label>
+          <input type="password" matInput placeholder="Password" value="" name="password" #password>
+        </mat-form-field>
+        <mat-form-field class="full-width" appearance="fill">
+          <mat-label>Password again</mat-label>
+          <input type="password" matInput placeholder="Password again" value="" name="password" #passwordAgain>
+        </mat-form-field>
+      </form>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-raised-button color="primary" (click)="register(name.value.trim(), password.value.trim(), passwordAgain.value.trim())">Register</button>
+    </mat-card-actions>
+  </mat-card>
+</div>

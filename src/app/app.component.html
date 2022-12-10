@@ -1,4 +1,18 @@
+<mat-toolbar color="primary">
+  <a class="title" href="/">{{title}}</a>
 
-<div>
+  <div *ngIf="!userLoggedIn()">
+    <a mat-raised-button [routerLink]="['login']">Login</a>
+    <a mat-raised-button [routerLink]="['register']">Register</a>
+  </div>
+
+  <div *ngIf="userLoggedIn()">
+    <a mat-raised-button [routerLink]="['albums']">Albums</a>
+    <a mat-raised-button [routerLink]="['profile']">Profile</a>
+    <button mat-raised-button (click)="logout()">Logout</button>
+  </div>
+
+</mat-toolbar>
+<div class="div-margins">
   <router-outlet></router-outlet>
 </div>
