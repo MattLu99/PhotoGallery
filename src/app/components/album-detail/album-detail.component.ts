@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Album, AlbumDto } from 'src/app/models/album.model';
 import { Photo, PhotoDto } from 'src/app/models/photo.model';
@@ -27,10 +27,16 @@ export class AlbumDetailComponent implements OnInit, OnDestroy {
 
   constructor(private galleryService: PhotoGalleryBackendService,
               private userLogin: UserLoginService,
-              private route: ActivatedRoute) { }
+              private router: Router,
+              private aroute: ActivatedRoute) {
+  }
 
   ngOnInit(): void {
-    this.onView();
+    this.id = this.aroute.snapshot.params['id'];
+    this.subscriptions.push(this.aroute.params
+      .subscribe(_ => {this.id = this.aroute.snapshot.params['id'];
+                        this.onNewAlbum()})
+    );
   }
 
   ngOnDestroy(): void {
@@ -40,28 +46,22 @@ export class AlbumDetailComponent implements OnInit, OnDestroy {
     this.subscriptions = [];
   }
 
-  onView(): void {
-    this.albums = [];
-    this.photos = [];
-    this.id = "";
+  onNewAlbum(): void {
     this.currentAlbum = {} as Album;
-    this.getRouteId();
     this.getCurrentAlbumFromRoute();
-  }
-
-  getRouteId() {
-    this.subscriptions.push(this.route.params
-      .subscribe(params => this.id = params['id'])
-    );
   }
 
   getCurrentAlbumFromRoute() {
     this.subscriptions.push(
       this.galleryService.getAlbumById(this.id)
-        .subscribe((data: Album) => this.currentAlbum = data));
+        .subscribe({next: (data: Album) => {this.currentAlbum = data;
+          this.getCurrentAlbums();
+          this.getCurrentPhotos();
+        }}));
   }
 
   getCurrentAlbums(): void {
+    this.albums = [];
     this.subscriptions.push(
       this.galleryService.getUserAlbumsInLocation(this.userLogin.getUserId(), this.currentAlbum.name)
         .subscribe((data: Album[]) => this.albums = data)
@@ -69,44 +69,36 @@ export class AlbumDetailComponent implements OnInit, OnDestroy {
   }
 
   getCurrentPhotos(): void {
+    this.photos = [];
     this.subscriptions.push(
       this.galleryService.getAlbumPhotosById(this.id)
         .subscribe((data: Photo[]) => this.photos = data)
     );
   }
 
-  reload(): void {
-    this.getCurrentAlbums();
-    this.getCurrentPhotos();
-  }
-
   createAlbum(name: string, description: string): void {
-    for (var i = 0; i < this.albums.length; i++) {
-      if (this.albums[i].name === name) {
-        alert("You already have an album with the same name!");
-        return;
-      }
+    if (!name || !description) {
+      alert("You can't leave the album fields empty!")
+      return;
     }
     const location = this.currentAlbum.name;
     this.subscriptions.push(
       this.galleryService.createNewAlbum(this.userLogin.getUserId(), {name: name, parentName: location, description: description} as AlbumDto)
-        .subscribe()
+        .subscribe({next: _ => this.getCurrentAlbums(), error: e => alert(e.error)})
     )
   }
 
   createPhoto(name: string, description: string, takenAtT: string, takenAtLocation: string): void {
-    for (var i = 0; i < this.photos.length; i++) {
-      if (this.photos[i].name === name) {
-        alert("You already have a photo with the same name!");
-        return;
-      }
+    if (!name || !description || !takenAtT || !takenAtLocation) {
+      alert("You can't leave the photo fields empty!")
+      return;
     }
     const takenAtTime = new Date(takenAtT);
     const imageData = this.base64textString.join();
     this.subscriptions.push(
       this.galleryService.createNewPhoto(this.id, {name: name, description: description, takenAtTime: takenAtTime,
-                                                                            takenAtLocation: takenAtLocation, imageData: imageData} as PhotoDto)
-        .subscribe()
+                                                    takenAtLocation: takenAtLocation, imageData: imageData} as PhotoDto)
+        .subscribe({next: _ => this.getCurrentPhotos(), error: e => alert(e.error)})
     )
   }
 

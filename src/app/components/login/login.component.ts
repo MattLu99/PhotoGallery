@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { User, UserDto } from 'src/app/models/user.model';
 import { PhotoGalleryBackendService } from 'src/app/services/photo-gallery-backend.service';
@@ -14,7 +15,8 @@ export class LoginComponent implements OnInit, OnDestroy {
   subscriptions: Subscription[] = [];
 
   constructor(private galleryService: PhotoGalleryBackendService,
-              private userLogin: UserLoginService) { }
+              private userLogin: UserLoginService,
+              private router: Router) { }
 
   ngOnInit(): void {
   }
@@ -28,7 +30,8 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   login(name: string, password: string) {
     this.subscriptions.push(this.galleryService.loginUser({name, password} as UserDto)
-        .subscribe({next: (data: User) => this.userLogin.loginUserId(data.id), error: e => alert(e.error)}));
+        .subscribe({next: (data: User) => {this.userLogin.loginUserId(data.id); this.router.navigate(['\..', 'profile']);},
+                     error: e => alert(e.error)}));
   }
 
 }

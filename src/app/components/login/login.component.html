@@ -17,7 +17,7 @@
       </form>
     </mat-card-content>
     <mat-card-actions>
-      <a [routerLink]="['../', 'profile']" mat-raised-button color="primary" (click)="login(name.value.trim(), password.value.trim())">Login</a>
+      <button mat-raised-button color="primary" (click)="login(name.value.trim(), password.value.trim())">Login</button>
     </mat-card-actions>
   </mat-card>
 </div>

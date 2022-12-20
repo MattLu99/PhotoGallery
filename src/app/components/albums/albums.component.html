@@ -25,9 +25,6 @@
     </mat-card-content>
   </mat-card>
 </div>
-<div>
-  <button mat-raised-button color="primary" (click)="reloadAlbums()"> Reload </button>
-</div>
 <div *ngIf="albums?.length">
   <mat-card class="view-card" *ngFor="let album of albums">
   <mat-card-header>

@@ -36,22 +36,16 @@ export class AlbumsComponent implements OnInit, OnDestroy {
     );
   }
 
-  reloadAlbums(): void {
-    this.getCurrentAlbums();
-  }
-
   createAlbum(name: string, description: string): void {
-    for (var i = 0; i < this.albums.length; i++) {
-      if (this.albums[i].name === name) {
-        alert("You already have an album with the same name!");
-        return;
-      }
+    if (!name || !description) {
+      alert("You can't leave the album fields empty!")
+      return;
     }
     const location = "$root"
     this.subscriptions.push(
       this.galleryService.createNewAlbum(this.userLogin.getUserId(), {name: name, parentName: location, description: description} as AlbumDto)
-        .subscribe()
-    )
+        .subscribe({next: _ => this.getCurrentAlbums(), error: e => alert(e.error)})
+    );
   }
 
 }
