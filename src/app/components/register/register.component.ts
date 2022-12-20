@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { User, UserDto } from 'src/app/models/user.model';
-import { LoggedInService } from 'src/app/services/logged-in.service';
+import { UserDto } from 'src/app/models/user.model';
 import { PhotoGalleryBackendService } from 'src/app/services/photo-gallery-backend.service';
 
 @Component({
@@ -14,7 +14,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
   subscriptions: Subscription[] = [];
 
   constructor(private galleryService: PhotoGalleryBackendService,
-              private loginService: LoggedInService) { }
+              private router: Router) { }
 
   ngOnInit(): void {
   }
@@ -27,11 +27,13 @@ export class RegisterComponent implements OnInit, OnDestroy {
   }
 
   register(name: string, password: string, passwordAgain: string) {
-    if (password === passwordAgain) {
-      this.subscriptions.push(this.galleryService.registerUser({name, password} as UserDto)
-          .subscribe({next: (data: User) => this.loginService.LoginUser(data), error: e => alert(e.error)}));
-    } else {
+    if (!name || !password) {
+      alert("You can't leave the values empty!");
+    } else if (password !== passwordAgain) {
       alert("Passwords do not match!");
+    } else {
+      this.subscriptions.push(this.galleryService.registerUser({name, password} as UserDto)
+          .subscribe({next: _ => this.router.navigate(["login"]), error: e => alert(e.error)}));
     }
   }
 

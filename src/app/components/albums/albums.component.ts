@@ -1,8 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Album, AlbumDto } from 'src/app/models/album.model';
-import { LoggedInService } from 'src/app/services/logged-in.service';
 import { PhotoGalleryBackendService } from 'src/app/services/photo-gallery-backend.service';
+import { UserLoginService } from 'src/app/services/user-login.service';
 
 @Component({
   selector: 'app-albums',
@@ -16,7 +16,7 @@ export class AlbumsComponent implements OnInit, OnDestroy {
   albums: Album[] = [];
 
   constructor(private galleryService: PhotoGalleryBackendService,
-              private loginService: LoggedInService) { }
+              private userLogin: UserLoginService) { }
 
   ngOnInit(): void {
     this.getCurrentAlbums();
@@ -31,7 +31,7 @@ export class AlbumsComponent implements OnInit, OnDestroy {
 
   getCurrentAlbums(): void {
     this.subscriptions.push(
-      this.galleryService.getUserAlbumsInLocation(this.loginService.currentUser.id, "$root")
+      this.galleryService.getUserAlbumsInLocation(this.userLogin.getUserId(), "$root")
         .subscribe((data: Album[]) => this.albums = data)
     );
   }
@@ -49,7 +49,7 @@ export class AlbumsComponent implements OnInit, OnDestroy {
     }
     const location = "$root"
     this.subscriptions.push(
-      this.galleryService.createNewAlbum(this.loginService.currentUser.id, {name: name, parentName: location, description: description} as AlbumDto)
+      this.galleryService.createNewAlbum(this.userLogin.getUserId(), {name: name, parentName: location, description: description} as AlbumDto)
         .subscribe()
     )
   }

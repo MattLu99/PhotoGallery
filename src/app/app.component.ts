@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { LoggedInService } from './services/logged-in.service';
+import { UserLoginService } from './services/user-login.service';
 
 @Component({
   selector: 'app-root',
@@ -9,14 +9,14 @@ import { LoggedInService } from './services/logged-in.service';
 export class AppComponent {
   title = 'Photo Gallery';
 
-  constructor(private loginService: LoggedInService) { }
+  constructor(private userLogin: UserLoginService) { }
 
   userLoggedIn(): boolean {
-    return this.loginService.userLoggedIn;
+    return this.userLogin.hasUserId();
   }
 
   logout(): void {
-    this.loginService.LogoutUser()
+    this.userLogin.logoutUser();
   }
 
 }

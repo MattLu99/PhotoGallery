@@ -36,6 +36,10 @@ export class PhotoGalleryBackendService {
     return this.http.post<User>(`${GALLERY_ENDPOINT}/User/Register`, userDto, this.httpOptions);
   }
 
+  getUserById(id: string): Observable<User> {
+    return this.http.get<User>(`${GALLERY_ENDPOINT}/User/${id}`);
+  }
+
   getUserAlbums(id: string): Observable<Album[]> {
     return this.http.get<Album[]>(`${GALLERY_ENDPOINT}/User/${id}/Albums`);
   }
