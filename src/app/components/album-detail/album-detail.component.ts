@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Album, AlbumDto } from 'src/app/models/album.model';
 import { Photo, PhotoDto } from 'src/app/models/photo.model';
@@ -27,7 +27,6 @@ export class AlbumDetailComponent implements OnInit, OnDestroy {
 
   constructor(private galleryService: PhotoGalleryBackendService,
               private userLogin: UserLoginService,
-              private router: Router,
               private aroute: ActivatedRoute) {
   }
 
