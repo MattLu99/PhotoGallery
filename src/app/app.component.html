@@ -1,5 +1,5 @@
 <mat-toolbar color="primary">
-  <a class="title" href="/">{{title}}</a>
+  <a class="title" [routerLink]="['home']">{{title}}</a>
 
   <div *ngIf="!userLoggedIn()">
     <a mat-raised-button [routerLink]="['login']">Login</a>
@@ -9,7 +9,7 @@
   <div *ngIf="userLoggedIn()">
     <a mat-raised-button [routerLink]="['albums']">Albums</a>
     <a mat-raised-button [routerLink]="['profile']">Profile</a>
-    <button mat-raised-button (click)="logout()">Logout</button>
+    <a mat-raised-button [routerLink]="['home']" (click)="logout()">Logout</a>
   </div>
 
 </mat-toolbar>

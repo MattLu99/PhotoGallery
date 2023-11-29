@@ -20,20 +20,20 @@ export class PhotoGalleryBackendService {
   constructor(private http: HttpClient) { }
 
   /* User Endpoints Start */
-  getAllUsers(): Observable<User[]> {
-    return this.http.get<User[]>(`${GALLERY_ENDPOINT}/User`);
-  }
-
   countUsers(): Observable<number> {
     return this.http.get<number>(`${GALLERY_ENDPOINT}/User/Count`);
+  }
+
+  registerUser(userDto: UserDto): Observable<User> {
+    return this.http.post<User>(`${GALLERY_ENDPOINT}/User/Register`, userDto, this.httpOptions);
   }
 
   loginUser(userDto: UserDto): Observable<User> {
     return this.http.post<User>(`${GALLERY_ENDPOINT}/User/Login`, userDto, this.httpOptions);
   }
 
-  registerUser(userDto: UserDto): Observable<User> {
-    return this.http.post<User>(`${GALLERY_ENDPOINT}/User/Register`, userDto, this.httpOptions);
+  getUserById(id: string): Observable<User> {
+    return this.http.get<User>(`${GALLERY_ENDPOINT}/User/${id}`);
   }
 
   getUserAlbums(id: string): Observable<Album[]> {
@@ -51,10 +51,6 @@ export class PhotoGalleryBackendService {
   /* User Endpoints End */
 
   /* Album Endpoints Start */
-  getAllAlbums(): Observable<Album[]> {
-    return this.http.get<Album[]>(`${GALLERY_ENDPOINT}/Album`);
-  }
-
   countAlbums(): Observable<number> {
     return this.http.get<number>(`${GALLERY_ENDPOINT}/Album/Count`);
   }
@@ -74,10 +70,6 @@ export class PhotoGalleryBackendService {
   /* Album Endpoints End */
 
   /* Photo Endpoints Start */
-  getAllPhotos(): Observable<Photo[]> {
-    return this.http.get<Photo[]>(`${GALLERY_ENDPOINT}/Photo`);
-  }
-
   countPhotos(): Observable<number> {
     return this.http.get<number>(`${GALLERY_ENDPOINT}/Photo/Count`);
   }

@@ -1,8 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Album, AlbumDto } from 'src/app/models/album.model';
-import { LoggedInService } from 'src/app/services/logged-in.service';
 import { PhotoGalleryBackendService } from 'src/app/services/photo-gallery-backend.service';
+import { UserLoginService } from 'src/app/services/user-login.service';
 
 @Component({
   selector: 'app-albums',
@@ -16,7 +16,7 @@ export class AlbumsComponent implements OnInit, OnDestroy {
   albums: Album[] = [];
 
   constructor(private galleryService: PhotoGalleryBackendService,
-              private loginService: LoggedInService) { }
+              private userLogin: UserLoginService) { }
 
   ngOnInit(): void {
     this.getCurrentAlbums();
@@ -31,27 +31,21 @@ export class AlbumsComponent implements OnInit, OnDestroy {
 
   getCurrentAlbums(): void {
     this.subscriptions.push(
-      this.galleryService.getUserAlbumsInLocation(this.loginService.currentUser.id, "$root")
+      this.galleryService.getUserAlbumsInLocation(this.userLogin.getUserId(), "$root")
         .subscribe((data: Album[]) => this.albums = data)
     );
   }
 
-  reloadAlbums(): void {
-    this.getCurrentAlbums();
-  }
-
   createAlbum(name: string, description: string): void {
-    for (var i = 0; i < this.albums.length; i++) {
-      if (this.albums[i].name === name) {
-        alert("You already have an album with the same name!");
-        return;
-      }
+    if (!name || !description) {
+      alert("You can't leave the album fields empty!")
+      return;
     }
     const location = "$root"
     this.subscriptions.push(
-      this.galleryService.createNewAlbum(this.loginService.currentUser.id, {name: name, parentName: location, description: description} as AlbumDto)
-        .subscribe()
-    )
+      this.galleryService.createNewAlbum(this.userLogin.getUserId(), {name: name, parentName: location, description: description} as AlbumDto)
+        .subscribe({next: _ => this.getCurrentAlbums(), error: e => alert(e.error)})
+    );
   }
 
 }

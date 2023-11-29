@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/models/user.model';
-import { LoggedInService } from 'src/app/services/logged-in.service';
+import { PhotoGalleryBackendService } from 'src/app/services/photo-gallery-backend.service';
+import { UserLoginService } from 'src/app/services/user-login.service';
 
 @Component({
   selector: 'app-profile',
@@ -11,10 +12,12 @@ export class ProfileComponent implements OnInit {
 
   user!: User;
 
-  constructor(private loginService: LoggedInService) { }
+  constructor(private galleryService: PhotoGalleryBackendService,
+              private userLogin: UserLoginService) { }
 
   ngOnInit(): void {
-    this.user = this.loginService.currentUser;
+    this.galleryService.getUserById(this.userLogin.getUserId()!)
+      .subscribe({next: (data: User)=> this.user = data});
   }
 
 }

@@ -25,19 +25,16 @@
     </mat-card-content>
   </mat-card>
 </div>
-<div>
-  <button mat-raised-button color="primary" (click)="reloadAlbums()"> Reload </button>
-</div>
 <div *ngIf="albums?.length">
   <mat-card class="view-card" *ngFor="let album of albums">
-  <mat-card-header>
-    <mat-card-title>{{album.name}}</mat-card-title>
-    <mat-card-subtitle>{{album.id}}</mat-card-subtitle>
-  </mat-card-header>
-  <mat-card-content>
-    <p>Description: {{album.description}}</p>
-    <p>Created: {{album.createdAt}}</p>
-    <a mat-raised-button color="primary" [routerLink]="[album.id]"> View </a>
-  </mat-card-content>
+    <mat-card-header>
+      <mat-card-title>{{album.name}}</mat-card-title>
+      <mat-card-subtitle>{{album.id}}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <p>Description: {{album.description}}</p>
+      <p>Created: {{album.createdAt}}</p>
+      <a mat-raised-button color="primary" [routerLink]="[album.id]"> View </a>
+    </mat-card-content>
   </mat-card>
 </div>

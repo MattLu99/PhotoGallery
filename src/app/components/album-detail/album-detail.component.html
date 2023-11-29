@@ -81,34 +81,31 @@
     </mat-card-content>
   </mat-card>
 </div>
-<div>
-  <button mat-raised-button color="primary" (click)="reload()"> Reload </button>
-</div>
 <div *ngIf="albums?.length">
   <h2>Albums</h2>
   <mat-card class="view-card" *ngFor="let album of albums">
-  <mat-card-header>
-    <mat-card-title>{{album.name}}</mat-card-title>
-    <mat-card-subtitle>{{album.id}}</mat-card-subtitle>
-  </mat-card-header>
-  <mat-card-content>
-    <p>Description: {{album.description}}</p>
-    <p>Created: {{album.createdAt}}</p>
-    <a mat-raised-button color="primary" [routerLink]="['../', album.id]" (click)="onView()"> View </a>
-  </mat-card-content>
+    <mat-card-header>
+      <mat-card-title>{{album.name}}</mat-card-title>
+      <mat-card-subtitle>{{album.id}}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <p>Description: {{album.description}}</p>
+      <p>Created: {{album.createdAt}}</p>
+      <a mat-raised-button color="primary" [routerLink]="['../', album.id]"> View </a>
+    </mat-card-content>
   </mat-card>
 </div>
 <div *ngIf="photos?.length">
   <h2>Albums</h2>
   <mat-card class="view-card" *ngFor="let photo of photos">
-  <mat-card-header>
-    <mat-card-title>{{photo.name}}</mat-card-title>
-    <mat-card-subtitle>{{photo.id}}</mat-card-subtitle>
-  </mat-card-header>
-  <mat-card-content>
-    <p>Description: {{photo.description}}</p>
-    <a mat-raised-button color="primary" [routerLink]="['../photos/', photo.id]" (click)="onView()"> View </a>
-    <img src={{photo.imageData}} alt="" id="img" height="400px">
-  </mat-card-content>
+    <mat-card-header>
+      <mat-card-title>{{photo.name}}</mat-card-title>
+      <mat-card-subtitle>{{photo.id}}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <p>Description: {{photo.description}}</p>
+      <a mat-raised-button color="primary" [routerLink]="['../photos/', photo.id]"> View </a>
+      <img src={{photo.imageData}} alt="" id="img" height="400px">
+    </mat-card-content>
   </mat-card>
 </div>

@@ -1,17 +1,22 @@
 # PhotoGallery
-Angular 14 frontend for the PhotoGallery university project. This is the complete client side web app that gets its data from the PhotoGalleryAPI.
-
-## Online fényképtár - leírás
-A feladat egy webes alkalmazás kialakítása, amiben fényképeket lehet tárolni, rendszerezni. A rendszer legyen képes (hierarchikus) albumok kezelésére. Támogassa a kötegelt feltöltést (pl zip fájl) és/vagy valamilyen többes fájl feltöltő vezérlő segítségével. Az albumokat lehessen bélyegkép nézetben tallózni, illetve teljes albumokat le is lehessen tölteni akár egyben is. A felhasználó a képekhez tudjon meta adatokat rendelni (név, kommentek, készítés helye, ideje), ami alapján keresni is lehessen. Az alkalmazás támogassa a közvetlen linkelhetőséget, tehát minen album/kép egy url segítségével egyedileg is elérhető legyen.
+The frontend of an Angular + ASP.NET Core web app project. Started as a university project, but then overtime worked more and more on it to learn about Fullstack development. The frontend uses Angular Material for clean and responsive display. Backend of the project: https://github.com/MattLu99/PhotoGalleryAPI
 
 ## Useful commands
 
 ### Install packages and run:
 npm install<br/>
-ng s --open
+ng serve --open
 
 ## Links
 - [Angular](https://angular.io/docs)
+- [Angular Coding Style](https://angular.io/guide/styleguide)
 - [Angular Material](https://material.angular.io/)
 
 ## ToDo:
+- Update: update project to next versions of Angular
+- Fix: [remake the project structure](https://angular.io/guide/styleguide#overall-structural-guidelines)
+- Fix: make the view better/non-sequiential and mostly responsive
+- Feature: separate new album and new photo creation into different fields (maybe a popup)
+- Feature: both card view and table view of photos in albums
+- Feature: detailed photo view 
+- Feature: implement cover image usage for albums
